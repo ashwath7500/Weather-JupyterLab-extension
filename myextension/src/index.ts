@@ -10,10 +10,6 @@ import {
   Widget
 } from '@lumino/widgets';
 
-import { 
-  jupyterIcon
-} from "@jupyterlab/ui-components";
-
 /**
  * Initialization data for the myextension extension.
  */
@@ -22,6 +18,7 @@ const extension: JupyterFrontEndPlugin<void> = {
   autoStart: true,
   requires: [ICommandPalette],
   activate: (app: JupyterFrontEnd, palette: ICommandPalette) => {
+      
 
   // Create a blank content widget inside of a MainAreaWidget
   const content = new Widget();
@@ -37,7 +34,6 @@ const extension: JupyterFrontEndPlugin<void> = {
 
   var my_tb= (<HTMLInputElement> document.createElement('INPUT'));
   my_tb.type='TEXT';
-  my_tb.id='myInput';
   my_tb.placeholder='Enter a city';
   my_form.appendChild(my_tb);  
 
@@ -45,9 +41,10 @@ const extension: JupyterFrontEndPlugin<void> = {
   button.innerHTML = 'Submit';
   button.onclick = function(){
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open( "GET", 'http://www.mocky.io/v2/5e63e16c3600006500e8ddb7', false ); 
+      xmlHttp.open( "GET", 'http://www.mocky.io/v2/5e643dcc3400006b003387ec', false ); 
       xmlHttp.send( null );
-      alert("Weather in "+my_tb.value+" is "+xmlHttp.responseText+" degrees celsius");
+      
+      alert("Output for city "+my_tb.value+" from API is: \n"+xmlHttp.responseText);
       return false;
   };
       
@@ -55,13 +52,13 @@ const extension: JupyterFrontEndPlugin<void> = {
   content.node.appendChild(my_form);    
 
   // Add an application command
-  const command: string = 'weater:open';
+  const command: string = 'weather:open';
   app.commands.addCommand(command, {
     label: 'weather finder',
     execute: () => {
       if (!widget.isAttached) {
         // Attach the widget to the main work area if it's not there
-        app.shell.add(widget, 'main');
+        app.shell.add(widget, 'main');  
         app.shell.add(widget, 'left');    
       }
       // Activate the widget
@@ -70,7 +67,6 @@ const extension: JupyterFrontEndPlugin<void> = {
   });
 
   // Add the command to the palette.
-  jupyterIcon.element({backgroundColor: 'black',height: '16px',width: '16px',marginLeft: '2px'});       
   palette.addItem({command, category: 'Extension'});      
 }
 
