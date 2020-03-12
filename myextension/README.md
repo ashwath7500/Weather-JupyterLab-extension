@@ -16,8 +16,10 @@ jupyter labextension install myextension
 ```
 
 ### Terminal setup
+```bash
 conda create -n jupyterlab-ext --override-channels --strict-channel-priority -c conda-forge -c anaconda jupyterlab cookiecutter nodejs git
 conda activate myextension (need to be run every new terminal)
+```
 
 ### Install
 
@@ -50,11 +52,13 @@ jupyter lab --watch
 ```
 
 ### Execution
+```bash
 go to http://localhost:8888/lab
 go to commands tab on the left panel and search for "weather finder"
 a left panel will be added for the new extension for "weather finder" click on it to run task 2
 
 move to python directory inside myextension and execute run.ipynb to run task 3.
+```
 
 ### Uninstall
 
